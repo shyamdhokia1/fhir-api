@@ -8,8 +8,12 @@ let config = {
         level: 'debug'
     },
     profiles: {
+        //dynamic import as commonjs
         patient: {
-            service: './patient.service.cjs',
+            service: async () => {
+                const module = await import('./patient.service.js');
+                return module.default || module;
+              },
             versions: [ VERSIONS['3_0_1'] ]
         }
     }

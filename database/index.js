@@ -7,7 +7,7 @@ import pg from 'pg';
 const { Pool } = pg;
 const pool = new Pool();
 
-const query = async(query, params) => {
+export const query = async(query, params) => {
     //initialise client here so can always access in finally block
     let client = null
     try {
