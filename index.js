@@ -1,6 +1,6 @@
-const FHIRServer = require('@asymmetrik/node-fhir-server-core');
-const path = require('path');
-const { VERSIONS } = FHIRServer.constants;
+import nodeserver from '@asymmetrik/node-fhir-server-core';
+const { initialize, constants } = nodeserver
+const { VERSIONS } = constants;
 
 let config = {
     server: {},
@@ -9,13 +9,14 @@ let config = {
     },
     profiles: {
         patient: {
-            service: path.posix.resolve('./patient.service.js'),
+            service: './patient.service.cjs',
             versions: [ VERSIONS['3_0_1'] ]
         }
     }
 };
-let server = FHIRServer.initialize(config);
+
+let server = initialize(config);
 
 server.listen(3000, () => {
-	server.logger.info('Starting the FHIR Server at localhost:3000');
+    server.logger.info('Starting the FHIR Server at localhost:3000');
 });
