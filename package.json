@@ -1,6 +1,5 @@
 {
   "name": "fhir-api",
-  "type": "module",
   "version": "1.0.0",
   "description": "A FHIR API server with a postgreSQL database",
   "main": "index.js",
