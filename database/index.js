@@ -14,7 +14,7 @@ const query = async(query, params) => {
         return res.rows
     } catch (err) {
         console.error(`Error querying database: ${err}`);
-        return err
+        throw err
     } finally {
         if (client){
             client.release()
