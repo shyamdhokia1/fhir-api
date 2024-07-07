@@ -2,6 +2,7 @@ const db = require('./database/index.js');
 const json_converter = require('./json-schema-converter')
 
 //GET -> /Patient/ID
+//Returns FHIR JSON for patient
 module.exports.searchById = async (args) => {
     try {
         // query postgres db
@@ -21,7 +22,7 @@ module.exports.searchById = async (args) => {
     }
 };
 
-//PATCH -> /Patient/ID?field=value
+//PATCH -> /Patient/ID?field=value&field2=value2...
 //Receives field: value pairs via parameters and updates postgres db with values
 //Returns 200 Response on success
 module.exports.patch = async (args, { req }) => {
@@ -39,20 +40,40 @@ module.exports.patch = async (args, { req }) => {
             throw new Error(`Unable to locate patient with ID: ${args.id}`);
         } else {
             //Update db
-            const updateResult = await db.query(queryString, values);
+            await db.query(queryString, values);
             console.log(`Successful PATCH request for patient ID: ${args.id}\n Updated columns ${cols} to ${values}`);
             //Return updated patient
             res = await db.query("SELECT * FROM patients WHERE identifier = $1", [args.id]);
             const FHIRres = json_converter.convertToFHIR(res[0]);
+            //ensures correct handling by handler.update middleware and correct response code
             return {
                 id: args.id,
-                resource_version: FHIRres.meta ? FHIRres.meta.versionId : undefined,
+                resource_version: undefined,
                 created: false //PATCH should never create new resource
             };
         }
     } catch (error) {
         console.error('Error in PATCH route:', error);
         throw new Error(`Error in PATCH route: ${error.message}`);
+    }
+};
+
+//DELETE -> /Patient/ID
+//Deletes patient's data
+//Returns 204 Response on success
+module.exports.remove = async (args) => {
+    try {
+        // Check if patient exists
+        const check = await db.query("SELECT * FROM patients WHERE identifier = $1", [args.id]);
+        if (check.length === 0){
+            throw new Error(`Unable to locate patient with ID: ${args.id}`);
+        }
+        // Delete patient
+        await db.query("DELETE FROM patients WHERE identifier = $1", [args.id]);
+        console.log(`Successful DELETE request for ${check.givenname} ${check.familyname} - ID: ${args.id}`);
+    } catch (error) {
+        console.error('Error in DELETE route:', error);
+        throw new Error(`Error in DELETE route: ${error.message}`);
     }
 };
 
