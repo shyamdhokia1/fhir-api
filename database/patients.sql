@@ -73,6 +73,9 @@ COPY public.patients (identifier, active, givenname, familyname, telecom, gender
 11111128	t	Ashley	Hernandez	(555)555-1243	female	1997-05-12	f	45 Maple St, Anytown, CA 90212	S	Frank	Hernandez	C	(555)555-1224	456 Palm St, Anytown, CA 90210	male	English	Dr. Kapoor, Sunset Clinic	Cedars-Sinai Medical Center
 11111129	t	Olivia	Jones	(555)555-1240	female	1990-01-05	f	456 Elm St, Anytown, WA 98001	M	David	Jones	C	(555)555-1241	456 Elm St, Anytown, WA 98001	male	English	Dr. Brown, Evergreen Clinic	Swedish Medical Center
 11111130	t	William	Garcia	(555)555-1242	male	1978-11-23	f	789 Oak St, Anytown, FL 33132	D	Sophia	Garcia	C	(555)555-1232	789 Oak St, Anytown, FL 33132	female	Spanish	Dr. Rodriguez, Central Clinic	Jackson Health System
+11111111	t	Jane	Doe	(555)555-1212	female	1975-11-21	f	456 Elm St, Anytown, CA 90210	M	John	Doe	C	(555)555-1213	456 Elm St, Anytown, CA 90210	male	English	Dr. Smith, Happy Family Clinic	General Hospital
+11111112	t	Alice	Smith	(555)555-1214	female	1980-02-14	f	789 Maple St, Anytown, NY 10001	S	David	Smith	C	(555)555-1215	789 Maple St, Anytown, NY 10001	male	English	Dr. Jones, City Clinic	Mercy Hospital
+11111113	t	Bob	Lee	(555)555-1216	male	1990-07-28	f	123 Main St, Anytown, CA 94109	M	Emily	Lee	C	(555)555-1217	123 Main St, Anytown, CA 94109	female	Spanish	Dr. Williams, Uptown Care	Mount Sinai Hospital
 \.
 
 
