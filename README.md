@@ -17,7 +17,7 @@ This is a personal project intended for educational purposes in backend developm
 
 ## Installation
 
-To run the build of this project, make sure Node and PostgreSQL are installed and follow these steps:
+To run this project locally first make sure Node and PostgreSQL are installed and follow these steps:
 
 1. **Clone the repository:**
 
@@ -40,11 +40,11 @@ cd ..
 mv sample.env .env
 ```
 
-4. **Install and Run**
+4. **Install Dependencies and Run**
 
 ```
 npm install
-npm run
+npm start
 ```
 
 >Default port is *3000*. Default API username is *test* and password is *password*
