@@ -31,6 +31,7 @@ cd fhir-api
 ```
 CREATE DATABASE fhir;
 ```
+
    Log out
 ```
 cd database
