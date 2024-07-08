@@ -52,6 +52,48 @@ CREATE TABLE public.patients (
 ALTER TABLE public.patients OWNER TO postgres;
 
 --
+-- Name: users; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.users (
+    id integer NOT NULL,
+    username character varying(30) NOT NULL,
+    password character varying(255) NOT NULL
+);
+
+
+ALTER TABLE public.users OWNER TO postgres;
+
+--
+-- Name: users_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.users_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.users_id_seq OWNER TO postgres;
+
+--
+-- Name: users_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.users_id_seq OWNED BY public.users.id;
+
+
+--
+-- Name: users id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.users ALTER COLUMN id SET DEFAULT nextval('public.users_id_seq'::regclass);
+
+
+--
 -- Data for Name: patients; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
@@ -74,9 +116,24 @@ COPY public.patients (identifier, active, givenname, familyname, telecom, gender
 11111129	t	Olivia	Jones	(555)555-1240	female	1990-01-05	f	456 Elm St, Anytown, WA 98001	M	David	Jones	C	(555)555-1241	456 Elm St, Anytown, WA 98001	male	English	Dr. Brown, Evergreen Clinic	Swedish Medical Center
 11111130	t	William	Garcia	(555)555-1242	male	1978-11-23	f	789 Oak St, Anytown, FL 33132	D	Sophia	Garcia	C	(555)555-1232	789 Oak St, Anytown, FL 33132	female	Spanish	Dr. Rodriguez, Central Clinic	Jackson Health System
 11111111	t	Jane	Doe	(555)555-1212	female	1975-11-21	f	456 Elm St, Anytown, CA 90210	M	John	Doe	C	(555)555-1213	456 Elm St, Anytown, CA 90210	male	English	Dr. Smith, Happy Family Clinic	General Hospital
-11111112	t	Alice	Smith	(555)555-1214	female	1980-02-14	f	789 Maple St, Anytown, NY 10001	S	David	Smith	C	(555)555-1215	789 Maple St, Anytown, NY 10001	male	English	Dr. Jones, City Clinic	Mercy Hospital
 11111113	t	Bob	Lee	(555)555-1216	male	1990-07-28	f	123 Main St, Anytown, CA 94109	M	Emily	Lee	C	(555)555-1217	123 Main St, Anytown, CA 94109	female	Spanish	Dr. Williams, Uptown Care	Mount Sinai Hospital
 \.
+
+
+--
+-- Data for Name: users; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.users (id, username, password) FROM stdin;
+1	test	password
+\.
+
+
+--
+-- Name: users_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.users_id_seq', 1, true);
 
 
 --
@@ -93,6 +150,22 @@ ALTER TABLE ONLY public.patients
 
 ALTER TABLE ONLY public.patients
     ADD CONSTRAINT patients_pkey PRIMARY KEY (identifier);
+
+
+--
+-- Name: users users_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.users
+    ADD CONSTRAINT users_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: users users_username_key; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.users
+    ADD CONSTRAINT users_username_key UNIQUE (username);
 
 
 --

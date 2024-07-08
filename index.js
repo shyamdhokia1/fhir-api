@@ -5,6 +5,12 @@ const { VERSIONS } = FHIRServer.constants;
 
 let config = {
     server: {},
+	auth: {
+		strategy: {
+			name: 'basic',
+			service: './src/basic.service.js'
+		}
+	},
     logging: {
         level: 'debug'
     },

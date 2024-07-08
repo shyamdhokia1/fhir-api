@@ -10,6 +10,7 @@
   "dependencies": {
     "@asymmetrik/node-fhir-server-core": "^2.2.5",
     "dotenv": "^16.4.5",
+    "passport-http": "^0.3.0",
     "pg": "^8.12.0"
   }
 }
