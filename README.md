@@ -47,8 +47,7 @@ npm install
 npm run
 ```
 
->Default port is *3000*
-Default API username is *test* and password is *password*
+>Default port is *3000*. Default API username is *test* and password is *password*
 
 ## API 
 
