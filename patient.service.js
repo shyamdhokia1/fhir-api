@@ -5,9 +5,7 @@ const json_converter = require('./json-schema-converter')
 //Returns FHIR JSON for patient
 module.exports.searchById = async (args) => {
     try {
-        // query postgres db
         const res = await db.query("SELECT * FROM patients WHERE identifier = $1", [args.id]);
-        
         if (res.length > 0) {
             // if returned array contains a patient, convert to FHIR JSON
             const FHIRres = json_converter.convertToFHIR(res[0]);
@@ -22,8 +20,34 @@ module.exports.searchById = async (args) => {
     }
 };
 
-//PATCH -> /Patient/ID?field=value&field2=value2...
-//Receives field: value pairs via parameters and updates postgres db with values
+//GET -> /Patient?key1=value&key2=value2...
+//Searches for patients matching all provided key:value criteria
+//Returns FHIR JSON for matching patient(s)
+module.exports.search = async (args, { req }) => {
+    const conditions = req.query;
+    const cols = Object.keys(conditions);
+    const values = Object.values(conditions);
+    // Generate parameterized query
+    const setList = cols.map((col, index) => `${col} = $${index + 1}`).join(' AND ');
+    const queryString = `SELECT * FROM patients WHERE ${setList}`;
+    try {
+        const res = await db.query(queryString, values);
+        if (res.length > 0) {
+            // if returned array contains patients, convert to FHIR JSON
+            const FHIRres = res.map(patient => json_converter.convertToFHIR(patient));
+            console.log(`Successful search request for: ${FHIRres.map(patient => `\n${patient.name[0].given[0]} ${patient.name[0].family} - ID: ${patient.identifier[0].value}`)}`);
+            return FHIRres;
+        } else {
+            throw new Error(`Unable to locate patient with conditions: ${Object.entries(conditions).map(([key, value]) => ` ${key}: ${value}`)}`);
+        }
+    } catch (error) {
+        console.error('Error in search:', error);
+        throw new Error(`Error in search: ${error.message}`);
+    }
+};
+
+//PATCH -> /Patient/ID?key1=value1&key2=value2...
+//Receives key: value pairs via parameters and updates db with values
 //Returns 200 Response on success
 module.exports.patch = async (args, { req }) => {
     const update = req.query;
@@ -59,7 +83,7 @@ module.exports.patch = async (args, { req }) => {
 };
 
 //DELETE -> /Patient/ID
-//Deletes patient's data
+//Deletes patient data 
 //Returns 204 Response on success
 module.exports.remove = async (args) => {
     try {
