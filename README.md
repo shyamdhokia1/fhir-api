@@ -65,8 +65,8 @@ Returns FHIR formatted JSON for patient with the specified ID.
     
 - **Example Response:**
 
-json
-``` 
+
+``` json
 {
     "resourceType": "Patient",
     "identifier": [
@@ -191,8 +191,8 @@ Searches for patients matching all provided key-value criteria, returning FHIR J
     
 - **Example Response:**
 
-json
-``` 
+
+``` json
 {
     "resourceType": "Patient",
     "identifier": [
