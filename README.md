@@ -29,7 +29,6 @@ cd fhir-api
    
 Log in to postgres
 ```
-psql -U postgres
 CREATE DATABASE fhir;
 ```
 Log out
