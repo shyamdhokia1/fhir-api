@@ -26,6 +26,7 @@ git clone https://github.com/shyamdhokia1/fhir-api
 cd fhir-api
 ```
 2. **Build SQL database**
+   
 Log in to postgres
 ```
 psql -U postgres
