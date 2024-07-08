@@ -48,7 +48,7 @@ npm run
 ```
 
 >Default port is *3000*
->Default API username is *test* and password is *password*
+Default API username is *test* and password is *password*
 
 ## API 
 
