@@ -26,14 +26,20 @@ git clone https://github.com/shyamdhokia1/fhir-api
 cd fhir-api
 ```
 2. **Build SQL database**
-
+Log in to postgres
+```
+psql -U postgres
+CREATE DATABASE fhir;
+```
+Log out
 ```
 cd database
-psql -U user -d target_database < patients.sql
+psql -U postgres -d fhir < patients.sql
 ```
+This uses the default postgres user and db name defined in sample.env, modify if needed
 
 3. **Define .env variables**
-Update your .env with the correct details for your postgreSQL user/installation
+Update your .env with the correct details for your postgreSQL superuser, database name, port etc.
 
 ```
 cd ..
@@ -51,7 +57,7 @@ npm start
 
 ## API 
 
-### `GET /Patient/ID`
+### `GET base/3_0_1/Patient/ID`
 
 Returns FHIR formatted JSON for patient with the specified ID.
 
@@ -175,7 +181,7 @@ Returns FHIR formatted JSON for patient with the specified ID.
 ```
     
 
-### `GET /Patient`
+### `GET base/3_0_1/Patient`
 
 Searches for patients matching all provided key-value criteria, returning FHIR JSON.
 
@@ -257,7 +263,7 @@ Searches for patients matching all provided key-value criteria, returning FHIR J
 
 ```
     
-### `PATCH /Patient/ID`
+### `PATCH base/3_0_1/Patient/ID`
 
 Updates patient data specified by ID with provided key-value pairs.
 
@@ -276,7 +282,7 @@ Updates patient data specified by ID with provided key-value pairs.
 HTTP/1.1 200 OK
 ```
 
-### `DELETE /Patient/ID`
+### `DELETE base/3_0_1/Patient/ID`
 
 Deletes patient data specified by ID.
 
