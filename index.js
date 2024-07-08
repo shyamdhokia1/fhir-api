@@ -16,7 +16,7 @@ let config = {
     },
     profiles: {
 		patient: {
-			service: path.posix.resolve('./patient.service.js'),
+			service: path.posix.resolve('./src/patient.service.js'),
 			versions: [ VERSIONS['3_0_1'] ]
 		}
     }

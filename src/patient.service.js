@@ -1,5 +1,5 @@
-const db = require('./database/index.js');
-const json_converter = require('./json-schema-converter')
+const db = require('../database/index.js');
+const json_converter = require('./json-schema-converter.js')
 
 //GET -> /Patient/ID
 //Returns FHIR JSON for patient
