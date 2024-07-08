@@ -66,9 +66,6 @@ module.exports.patch = async (args, { req }) => {
             //Update db
             await db.query(queryString, values);
             console.log(`Successful PATCH request for patient ID: ${args.id}\n Updated columns ${cols} to ${values}`);
-            //Return updated patient
-            res = await db.query("SELECT * FROM patients WHERE identifier = $1", [args.id]);
-            const FHIRres = json_converter.convertToFHIR(res[0]);
             //ensures correct handling by handler.update middleware and correct response code
             return {
                 id: args.id,
