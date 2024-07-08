@@ -27,19 +27,19 @@ cd fhir-api
 ```
 2. **Build SQL database**
    
-Log in to postgres
+   Log in to postgres
 ```
 CREATE DATABASE fhir;
 ```
-Log out
+   Log out
 ```
 cd database
 psql -U postgres -d fhir < patients.sql
 ```
-This uses the default postgres user and db name defined in sample.env, modify if needed
+   This uses the default postgres user and db name defined in sample.env, modify if needed
 
 3. **Define .env variables**
-Update your .env with the correct details for your postgreSQL superuser, database name, port etc.
+   Update your .env with the correct details for your postgreSQL superuser, database name, port etc.
 
 ```
 cd ..
