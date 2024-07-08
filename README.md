@@ -43,7 +43,6 @@ mv sample.env .env
 4. **Install and Run**
 
 ```
-cd ..
 npm install
 npm run
 ```
